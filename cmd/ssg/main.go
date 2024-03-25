@@ -3,8 +3,10 @@ package ssg
 import (
 	"bytes"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"os"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -71,6 +73,36 @@ type postsTemplateData struct {
 	TemplateData
 }
 
+func getConcurrency(filesCount int) int {
+	// Get the number of available CPU cores
+	numCores := runtime.NumCPU()
+
+	// Calculate the optimal concurrency value based on the number of files and CPU cores
+	concurrency := filesCount / numCores
+
+	// Set a minimum value for concurrency to avoid excessive goroutines
+	if concurrency < 1 {
+		concurrency = 1
+	}
+
+	return concurrency
+}
+func (g *Generator) GetMarkdownFilesCount() int {
+	files, err := ioutil.ReadDir(SiteDataPath + "content/")
+	if err != nil {
+		g.ErrorLogger.Fatal(err)
+	}
+
+	count := 0
+	for _, file := range files {
+		if strings.HasSuffix(file.Name(), ".md") {
+			count++
+		}
+	}
+
+	return count
+}
+
 func (g *Generator) RenderSite(addr string) {
 	// Creating the "rendered" directory if not present
 	err := os.RemoveAll(SiteDataPath + "rendered/")
@@ -107,28 +139,32 @@ func (g *Generator) RenderSite(addr string) {
 	templ := helper.ParseLayoutFiles()
 
 	var wg sync.WaitGroup
-	concurrency := 3
-	semaphore := make(chan struct{}, concurrency) // Each goroutine handles 3 files at a time
+	// m := 3                                         // Number of files to process concurrently
+	n := getConcurrency(g.GetMarkdownFilesCount()) // Number of goroutines
+	m := n / 2
+	semaphore := make(chan struct{}, m*n)
 
 	files := make([]string, 0, len(g.Templates))
 	for pagePath := range g.Templates {
 		files = append(files, string(pagePath))
 	}
 
-	for _, file := range files {
-		wg.Add(1)
-		semaphore <- struct{}{} // Acquire semaphore
+	for i := 0; i < n; i++ {
+		for j := i * m; j < (i+1)*m && j < len(files); j++ {
+			wg.Add(1)
+			semaphore <- struct{}{} // Acquire semaphore
 
-		go func(file string) {
-			defer func() {
-				<-semaphore // Release semaphore
-				wg.Done()
-			}()
+			go func(file string) {
+				defer func() {
+					<-semaphore // Release semaphore
+					wg.Done()
+				}()
 
-			pagePath := template.URL(file)
-			templateData := g.Templates[pagePath]
-			g.RenderPage(pagePath, templateData, templ, "page")
-		}(file)
+				pagePath := template.URL(file)
+				templateData := g.Templates[pagePath]
+				g.RenderPage(pagePath, templateData, templ, "page")
+			}(files[j])
+		}
 	}
 
 	wg.Wait()
