@@ -1,5 +1,6 @@
 let currentSlide = 0;
 const slides = document.querySelectorAll('.content');
+
 function showSlide(index) {
     slides.forEach((slide, i) => {
         if (i === index) {
@@ -9,6 +10,7 @@ function showSlide(index) {
         }
     });
 }
+
 function nextSlide() {
     currentSlide++;
     if (currentSlide >= slides.length) {
@@ -16,6 +18,7 @@ function nextSlide() {
     }
     showSlide(currentSlide);
 }
+
 function prevSlide() {
     currentSlide--;
     if (currentSlide < 0) {
@@ -23,33 +26,34 @@ function prevSlide() {
     }
     showSlide(currentSlide);
 }
+
 function submitForm() {
-    event.preventDefault(); // prevent default form submission
     var author = document.getElementById("author").value;
     var siteTitle = document.getElementById("siteTitle").value;
     var baseURL = document.getElementById("baseURL").value;
+
     if (!author || !siteTitle || !baseURL) {
         alert("Please fill out all fields.");
         return;
     }
-    var formData = {
-        "author": author,
-        "siteTitle": siteTitle,
-        "baseURL": baseURL
-    };
-    var jsonData = JSON.stringify(formData);
-    localStorage.setItem("formData", jsonData);
-    showSlide(slides.length - 1);
-    var today = new Date();
-    var dateString = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    var fileName = 'site-' + dateString + '.json';
-    var blob = new Blob([jsonData], { type: 'application/json' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+
+    var formData = '{' +
+        `"author":"${author}",` +
+        `"siteTitle":"${siteTitle}",` +
+        `"baseURL":"${baseURL}"` +
+        '}';
+
+    nextSlide(); // Move to the next slide after form validation
+
+    fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: formData
+    })
+
+    setTimeout(() => {
+        window.location.href = 'http://localhost:8000';
+    }, 3000); // 3s
 }
-showSlide(0); // show the first slide
+
+showSlide(0);

@@ -45,9 +45,6 @@ func main() {
 						}
 					}()
 				}
-				if webconsole {
-					go ssg.Wizard()
-				}
 				generator.StartLiveReload(addr)
 			}
 
@@ -59,9 +56,7 @@ func main() {
 				ssg.ValidateHTMLContent()
 			}
 			if prof {
-
 				generator.RenderSite("")
-
 				elapsedTimesince := time.Since(startTime) //this didn't work for some reason and was giving negitive deviation
 				// elapsedTime := time.Now().Sub(startTime)
 
@@ -70,7 +65,10 @@ func main() {
 				defer StopProfiling()
 			}
 			if webconsole {
-				ssg.Wizard()
+				server := ssg.NewWizardServer(":8080")
+				go server.Start()
+				generator.RenderSite("")
+				generator.StartLiveReload(addr)
 			}
 
 		},
