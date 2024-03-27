@@ -45,6 +45,9 @@ func main() {
 						}
 					}()
 				}
+				if webconsole {
+					go ssg.Wizard()
+				}
 				generator.StartLiveReload(addr)
 			}
 
@@ -65,9 +68,6 @@ func main() {
 				PrintStats(elapsedTimesince)
 				// PrintStats(elapsedTime)
 				defer StopProfiling()
-			}
-			if webconsole {
-				ssg.Wizard()
 			}
 
 		},
