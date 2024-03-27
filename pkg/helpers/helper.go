@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+const SiteDataPath string = "site/"
+
 type Helper struct {
 	ErrorLogger  *log.Logger
 	SiteDataPath string

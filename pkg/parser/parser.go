@@ -12,12 +12,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/acmpesuecc/anna/pkg/helpers"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/renderer/html"
 	"gopkg.in/yaml.v3"
 )
-
-const SiteDataPath string = "site/"
 
 type LayoutConfig struct {
 	Navbar      []string `yaml:"navbar"`
@@ -49,8 +48,8 @@ type TemplateData struct {
 
 	// Do not use these fields to store tags!!
 	// These fields are populated by the ssg to store merged tag data
-	Tags       []string
-	MergedTags []TemplateData
+	Tags                 []string
+	SpecificTagTemplates []TemplateData
 }
 
 type Date int64
@@ -58,15 +57,26 @@ type Date int64
 type Parser struct {
 	// Templates stores the template data of all the pages of the site
 	// Access the data for a particular page by using the relative path to the file as the key
-	Templates    map[template.URL]TemplateData
-	Posts        []TemplateData
-	LayoutConfig LayoutConfig
-	TagsMap      map[string][]TemplateData
+	Templates map[template.URL]TemplateData
 
-	ErrorLogger  *log.Logger
-	MdFilesName  []string
-	MdFilesPath  []string
+	//K-V pair storing all templates correspoding to a particular tag in the site
+	TagsMap map[string][]TemplateData
+
+	// Stores data parsed from layout/config.yml
+	LayoutConfig LayoutConfig
+
+	// Posts contains the template data of files in the posts directory
+	Posts []TemplateData
+
+	// TODO: Look into the two below fields into a single one
+	MdFilesName []string
+	MdFilesPath []string
+
+	// Stores flag value to render draft posts
 	RenderDrafts bool
+
+	// Common logger for all parser functions
+	ErrorLogger *log.Logger
 }
 
 func (p *Parser) ReadMdDir(baseDirPath string, baseDirFS fs.FS) {
@@ -107,7 +117,7 @@ func (p *Parser) AddFileAndRender(baseDirPath string, dirEntryPath string, front
 		date = 0
 	}
 
-	key, _ := strings.CutPrefix(filepath, SiteDataPath+"content/")
+	key, _ := strings.CutPrefix(filepath, helpers.SiteDataPath+"content/")
 	url, _ := strings.CutSuffix(key, ".md")
 	url += ".html"
 	page := TemplateData{

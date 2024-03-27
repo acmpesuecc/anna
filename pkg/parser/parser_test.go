@@ -206,7 +206,7 @@ func TestParseRobots(t *testing.T) {
 			t.Errorf("%v", err)
 		}
 		if !slices.Equal(got_robots_txt, want_robots_txt) {
-			t.Errorf("The expected and generated robots.txt can be found in test/")
+			t.Errorf("The expected and generated robots.txt can be found in test/layout/robots_txt/")
 		}
 	})
 }
