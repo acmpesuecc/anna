@@ -21,8 +21,8 @@ func newLiveReload(logger *log.Logger) *liveReload {
 	lr := liveReload{
 		errorLogger: logger,
 		fileTimes:   make(map[string]time.Time),
-		rootDirs:    []string{SiteDataPath}, // Directories to monitor, so add or remove as needed
-		extensions:  []string{".go", ".md"}, // File extensions to monitor
+		rootDirs:    []string{SiteDataPath},         // Directories to monitor, so add or remove as needed
+		extensions:  []string{".go", ".md", ".yml"}, // File extensions to monitor
 	}
 
 	return &lr
