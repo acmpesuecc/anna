@@ -69,6 +69,9 @@ func main() {
 				// PrintStats(elapsedTime)
 				defer StopProfiling()
 			}
+			if webconsole {
+				ssg.Wizard()
+			}
 
 		},
 	}
