@@ -20,6 +20,7 @@ type LayoutConfig struct {
 	SiteTitle   string   `yaml:"siteTitle"`
 	SiteScripts []string `yaml:"siteScripts"`
 	Author      string   `yaml:"author"`
+	ThemeURL    string   `yaml:"themeURL"`
 }
 
 type Frontmatter struct {

@@ -43,6 +43,21 @@
                 <div class="input-group"><input type="text" id="baseURL" placeholder="ex: https://anna.github.io"></div>
                 <div class="nav-buttons">
                     <button onclick="prevSlide()">&larr;</button>
+                    <button onclick="nextSlide()">Next &rarr;</button>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Choose a Theme</h2>
+                <div class="input-group">
+                    <select id="ThemeURL">
+                        <option value="/static/style.css" selected>default</option>
+                        <option value="https://sudhir.live/static/style.css">Sudhir</option>
+                        <option value="https://hegde.live/static/style.css">Hegde</option>
+                        <option value="https://raw.githubusercontent.com/polarhive/sushi/main/style.css">sushi</option>
+                    </select>
+                </div>
+                <div class="nav-buttons">
+                    <button onclick="prevSlide()">&larr;</button>
                     <button onclick="submitForm()">Submit</button>
                 </div>
             </div>

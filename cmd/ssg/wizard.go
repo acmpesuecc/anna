@@ -13,9 +13,11 @@ import (
 )
 
 type Config struct {
-	Author    string `yaml:"author"`
-	SiteTitle string `yaml:"siteTitle"`
-	BaseURL   string `yaml:"baseURL"`
+	BaseURL     string   `yaml:"baseURL"`
+	SiteTitle   string   `yaml:"siteTitle"`
+	SiteScripts []string `yaml:"siteScripts"`
+	Author      string   `yaml:"author"`
+	ThemeURL    string   `yaml:"themeURL"`
 }
 
 type WizardServer struct {
