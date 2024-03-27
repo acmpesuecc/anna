@@ -8,11 +8,10 @@ body {
 .navbar {
     background-color: #007bff;
     color: #ffffff;
-    padding: 10px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: relative;
+    padding: 10px;
 }
 
 .navbar-title {
@@ -25,12 +24,12 @@ body {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    width: 40px; /* Adjust size of the circle */
-    height: 40px; /* Adjust size of the circle */
-    border-radius: 50%; /* Create a circle */
-    background-color: #f0f0f0; /* Background color of the circle */
-    border: 4px solid #007bff; /* Vibrant blue border */
-    overflow: hidden; /* Hide progress overflow */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 4px solid #007bff;
+    overflow: hidden;
 }
 
 .progress {
@@ -39,10 +38,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%; /* Create a circle */
-    clip: rect(0, 20px, 40px, 0); /* Clip the progress to show half of the circle */
-    background-color: #007bff; /* Color of the progress */
-    animation: progressAnimation 2s infinite linear; /* Animate the progress */
+    border-radius: 50%;
+    clip: rect(0, 20px, 40px, 0);
+    background-color: #007bff;
+    animation: progressAnimation 2s infinite linear;
 }
 
 .emoji {
@@ -50,13 +49,14 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5rem; /* Adjust size of the emoji */
+    font-size: 1.5rem;
 }
 
 @keyframes progressAnimation {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -64,50 +64,45 @@ body {
 
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
 
-.slide {
-    padding: 20px;
-    text-align: center;
-}
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
 
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+    input[type="text"] {
+        padding: 15px;
+        margin: 20px 0;
+        width: 80%;
+        max-width: 400px;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    padding: 15px;
-    margin: 20px 0;
-    width: 80%;
-    max-width: 400px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    font-size: 1rem;
-}
+    input:focus {
+        outline: none;
+        border-color: #0056b3;
+    }
 
-input:focus {
-    outline: none;
-    border-color: #0056b3;
-}
+    button {
+        padding: 15px 30px;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-button {
-    padding: 15px 30px;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    button:hover {
+        background-color: #0056b3;
+    }
 
-button:hover {
-    background-color: #0056b3;
-}
+    .slide {
+        text-align: center;
+    }
