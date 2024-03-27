@@ -1,26 +1,26 @@
 ---
-title: week-0
-date: 2024-03-02
+title: Week-1 Progress
+date: 2024-03-25
 type: post
-draft: false
 tags:
   - progress
 ---
 
-# week-0
+# Week-1
 
 # Anirudh’s Progress
 
-- Use the 'Goldmark' library to generate HTML from markdown content
-- Create web server to serve rendered content
-- Create an initial working prototype of front matter.
-- Render the content/ and static/ directory recursively
-- Create a reusable system of partials to build page layouts
-- Parse the titles of posts from config.yml, later changed
+- Built the markdown to HTML renderer using the [Goldmark](https://github.com/yuin/goldmark) library
+- Set up a web server to preview the rendered content locally
+- Implemented a front matter YAML parser to retrieve page metadata
+- Designed a reusable system of partials to build page layouts
+- Implemented a recursive renderer for the content/ and static/ directories
 
 ## What's next?
 
-- tofill
+- Restructure the project
+- Refactor and improve the live reload functionality
+- Implement the post tagging system
 
 ---
 
@@ -52,13 +52,13 @@ tags:
 
 ## Whats Next:
 
-- JS inection as plugins into pages and individual posts
+- JS injection as plugins into pages and individual posts
 - Draft post rendering
 - Chronological Feed for posts
 
 # Nathan’s Progress
 
-- Setup CI using GitHub actions which builds and deploys ssg to [gh-pages](https://ssg-test-org.github.io)
+- Setup CI using GitHub actions which builds and deploys the SSG to [gh-pages](https://ssg-test-org.github.io)
 - Setup `robots.txt` to (currently set to prevent indexing until we reach a v1.0 release)
 - Implemented `sitemap.xml` to tell search engines how our site is structured
 - Fixed `baseURL` it now, uses absolute paths from root `/` when loading stylesheets

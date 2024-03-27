@@ -14,6 +14,7 @@ import (
 
 func main() {
 	var serve bool
+	var webconsole bool
 	var addr string
 	var draft bool
 	var validateHTML bool
@@ -65,11 +66,15 @@ func main() {
 				// PrintStats(elapsedTime)
 				defer StopProfiling()
 			}
+			if webconsole {
+				ssg.Wizard()
+			}
 
 		},
 	}
 
 	rootCmd.Flags().BoolVarP(&serve, "serve", "s", false, "serve the rendered content")
+	rootCmd.Flags().BoolVarP(&webconsole, "webconsole", "w", false, "wizard to setup anna")
 	rootCmd.Flags().StringVarP(&addr, "addr", "a", "8000", "ip address to serve rendered content to")
 	rootCmd.Flags().BoolVarP(&draft, "draft", "d", false, "renders draft posts")
 	rootCmd.Flags().BoolVarP(&validateHTML, "validate-html", "v", false, "validate semantic HTML")

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Wizard</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-header">
+            <h1 class="navbar-title">🧙 Setup Wizard</h1>
+            <div class="progress-circle">
+                <div class="progress"></div>
+                <span class="emoji">🍚</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="wizard" class="slide">
+            <div class="content">
+                <h2>Setup your Anna site</h2>
+                <div class="input-group">
+                    <input type="text" id="author" placeholder="Enter an author name">
+                </div>
+                <div class="nav-buttons">
+                    <button onclick="nextSlide()">Next</button>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Name your site</h2>
+                <div class="input-group"><input type="text" id="siteTitle" placeholder="ex: my blog"></div>
+                <div class="nav-buttons">
+                    <button onclick="prevSlide()">&larr;</button>
+                    <button onclick="nextSlide()">Next &rarr;</button>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Enter a domain name</h2>
+                <div class="input-group"><input type="text" id="baseURL" placeholder="ex: https://anna.github.io"></div>
+                <div class="nav-buttons">
+                    <button onclick="prevSlide()">&larr;</button>
+                    <button onclick="submitForm()">Submit</button>
+                </div>
+            </div>
+            <div class="content" id="final-slide">
+                <h2>Cooking your Anna site</h2>
+                <p>Your Anna site is being cooked. Please wait...</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
