@@ -39,20 +39,20 @@ function submitForm() {
             break;
         }
     }
-    var navbar = "[index]";
-
+    var navbar = ["index", "about"];
+    var navbar = navbar.join(',');
     if (!author || !siteTitle || !baseURL || !themeURL) {
         alert("Please fill out all fields.");
         return;
     }
 
-    var formData = '{' +
-        `"author":"${author}"` +
-        `"siteTitle":"${siteTitle}",` +
-        `"baseURL":"${baseURL}",` +
-        `"themeURL":"${themeURL}",` +
-        `"navbar": "${navbar}"` +
-        '}';
+    var formData = JSON.stringify({
+        "author": author,
+        "siteTitle": siteTitle,
+        "baseURL": baseURL,
+        "themeURL": themeURL,
+        "navbar": navbar
+    });
 
     nextSlide(); // Move to the next slide after form validation
 
@@ -64,7 +64,7 @@ function submitForm() {
 
     setTimeout(() => {
         window.location.href = 'http://localhost:8000';
-    }, 2000); // 2s
+    }, 3000); // 3s
 }
 
 showSlide(0);
