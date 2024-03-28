@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{.Frontmatter.Title}}</title>
 
-    <link rel="preload stylesheet" href="/static/style.css">
+    <link rel="preload stylesheet" href="{{.Layout.ThemeURL}}">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/tokyo-night-dark.min.css">
-
     <link rel="alternate" type="application/atom+xml" title="feed" href="/feed.atom">
 
     {{range .Frontmatter.JSFiles}}
@@ -25,6 +24,7 @@
     <meta property="og:title" content="{{ .Frontmatter.Title }}">
     <meta property="og:description" content="{{ .Frontmatter.Description }}">
     <meta property="og:image" content="{{ .Frontmatter.PreviewImage }}">
+    <!-- <meta property="og:author" content="{{ .Layout.Author}}"> -->
 
 </head>
 {{end}}

@@ -31,16 +31,27 @@ function submitForm() {
     var author = document.getElementById("author").value;
     var siteTitle = document.getElementById("siteTitle").value;
     var baseURL = document.getElementById("baseURL").value;
+    var themeURL = document.getElementById("themeURL");
 
-    if (!author || !siteTitle || !baseURL) {
+    for (var i = 0; i < themeURL.options.length; i++) {
+        if (themeURL.options[i].selected) {
+            themeURL = themeURL.options[i].value;
+            break;
+        }
+    }
+    var navbar = "[index]";
+
+    if (!author || !siteTitle || !baseURL || !themeURL) {
         alert("Please fill out all fields.");
         return;
     }
 
     var formData = '{' +
-        `"author":"${author}",` +
+        `"author":"${author}"` +
         `"siteTitle":"${siteTitle}",` +
-        `"baseURL":"${baseURL}"` +
+        `"baseURL":"${baseURL}",` +
+        `"themeURL":"${themeURL}",` +
+        `"navbar": "${navbar}"` +
         '}';
 
     nextSlide(); // Move to the next slide after form validation
@@ -53,7 +64,7 @@ function submitForm() {
 
     setTimeout(() => {
         window.location.href = 'http://localhost:8000';
-    }, 3000); // 3s
+    }, 2000); // 2s
 }
 
 showSlide(0);
