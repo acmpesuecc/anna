@@ -3,45 +3,42 @@ const slides = document.querySelectorAll('.content');
 
 function showSlide(index) {
     slides.forEach((slide, i) => {
-        if (i === index) {
-            slide.style.display = 'block';
-        } else {
-            slide.style.display = 'none';
-        }
+        slide.style.display = i === index ? 'block' : 'none';
     });
 }
 
 function nextSlide() {
-    currentSlide++;
-    if (currentSlide >= slides.length) {
-        currentSlide = slides.length - 1;
-    }
+    currentSlide = Math.min(currentSlide + 1, slides.length - 1);
     showSlide(currentSlide);
 }
 
 function prevSlide() {
-    currentSlide--;
-    if (currentSlide < 0) {
-        currentSlide = 0;
-    }
+    currentSlide = Math.max(currentSlide - 1, 0);
     showSlide(currentSlide);
+}
+
+function checkFormValidity() {
+    var author = document.getElementById("author").value;
+    var siteTitle = document.getElementById("siteTitle").value;
+    var baseURL = document.getElementById("baseURL").value;
+    var themeURL = document.getElementById("themeURL").value;
+
+    var nextButton = document.getElementById("nextButton");
+    var nextButton2 = document.getElementById("nextButton2");
+    var nextButton3 = document.getElementById("nextButton3");
+
+    nextButton.disabled = !(author);
+    nextButton2.disabled = !(siteTitle);
+    nextButton3.disabled = !(baseURL);
 }
 
 function submitForm() {
     var author = document.getElementById("author").value;
     var siteTitle = document.getElementById("siteTitle").value;
     var baseURL = document.getElementById("baseURL").value;
-    var themeURL = document.getElementById("themeURL");
+    var themeURL = document.getElementById("themeURL").value;
 
-    for (var i = 0; i < themeURL.options.length; i++) {
-        if (themeURL.options[i].selected) {
-            themeURL = themeURL.options[i].value;
-            break;
-        }
-    }
-    var navbar = ["index", "about"];
-    var navbar = navbar.join(',');
-    if (!author || !siteTitle || !baseURL || !themeURL) {
+    if (!author.trim() || !siteTitle.trim() || !baseURL.trim() || !themeURL.trim()) {
         alert("Please fill out all fields.");
         return;
     }
@@ -51,16 +48,15 @@ function submitForm() {
         "siteTitle": siteTitle,
         "baseURL": baseURL,
         "themeURL": themeURL,
-        "navbar": navbar
+        "navbar": "index,about"
     });
 
-    nextSlide(); // Move to the next slide after form validation
-
+    showSlide(slides.length - 1);
     fetch('/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: formData
-    })
+    });
 
     setTimeout(() => {
         window.location.href = 'http://localhost:8000';

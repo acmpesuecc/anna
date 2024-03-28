@@ -24,32 +24,32 @@
             <div class="content">
                 <h2>Setup your Anna site</h2>
                 <div class="input-group">
-                    <input type="text" id="author" placeholder="Enter an author name">
+                    <input type="text" id="author" required placeholder="Enter an author name" oninput="checkFormValidity()">
                 </div>
                 <div class="nav-buttons">
-                    <button onclick="nextSlide()">Next</button>
+                    <button onclick="nextSlide()" id="nextButton" disabled>Next</button>
                 </div>
             </div>
             <div class="content">
                 <h2>Name your site</h2>
-                <div class="input-group"><input type="text" id="siteTitle" placeholder="ex: my blog"></div>
+                <div class="input-group"><input type="text" id="siteTitle" required placeholder="ex: my blog" oninput="checkFormValidity()"></div>
                 <div class="nav-buttons">
                     <button onclick="prevSlide()">&larr;</button>
-                    <button onclick="nextSlide()">Next &rarr;</button>
+                    <button onclick="nextSlide()" id="nextButton2" disabled>Next &rarr;</button>
                 </div>
             </div>
             <div class="content">
                 <h2>Enter a domain name</h2>
-                <div class="input-group"><input type="text" id="baseURL" placeholder="ex: https://anna.github.io"></div>
+                <div class="input-group"><input type="text" id="baseURL" required placeholder="ex: https://anna.github.io" oninput="checkFormValidity()"></div>
                 <div class="nav-buttons">
                     <button onclick="prevSlide()">&larr;</button>
-                    <button onclick="nextSlide()">Next &rarr;</button>
+                    <button onclick="nextSlide()" id="nextButton3" disabled>Next &rarr;</button>
                 </div>
             </div>
             <div class="content">
                 <h2>Choose a Theme</h2>
                 <div class="input-group">
-                    <select id="themeURL">
+                    <select id="themeURL" required oninput="checkFormValidity()">
                         <option value="/static/style.css" selected>default</option>
                         <option value="https://sudhir.live/static/style.css">Sudhir</option>
                         <option value="https://hegde.live/static/style.css">Hegde</option>
@@ -67,6 +67,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 
