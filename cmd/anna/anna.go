@@ -86,9 +86,15 @@ func (cmd *Cmd) VanillaRender() {
 		e.ErrorLogger.Fatalf("%v", err)
 	}
 
+	// Load all files into memory
+	fileMap, err := e.LoadFilesToMemory(helpers.SiteDataPath)
+	if err != nil {
+		e.ErrorLogger.Fatalf("%v", err)
+	}
+
 	e.RenderNotes(helpers.SiteDataPath, templ)
 	e.GenerateNoteRoot(helpers.SiteDataPath, templ)
-	e.RenderEngineGeneratedFiles(helpers.SiteDataPath, templ)
-	e.RenderUserDefinedPages(helpers.SiteDataPath, templ)
+	e.RenderEngineGeneratedFiles(helpers.SiteDataPath, templ, fileMap)
+	e.RenderUserDefinedPages(helpers.SiteDataPath, templ, fileMap)
 	e.RenderTags(helpers.SiteDataPath, templ)
 }
